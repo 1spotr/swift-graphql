@@ -14,6 +14,7 @@ extension GraphQLResult where TypeLock: Decodable {
         // Decodes the data using provided selection.
         do {
             let decoder = JSONDecoder()
+												decoder.dateDecodingStrategy = .secondsSince1970
             let response = try decoder.decode(GraphQLResponse.self, from: response)
             self.data = try selection.decode(data: response.data)
             self.errors = response.errors
